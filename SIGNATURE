@@ -1,0 +1,52 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.68.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
+SHA1 5fb80ea198f0ad7fa1ffdbf16a9e4956f7ce7bef Changes
+SHA1 435d0910f3df97e24cc8701d8e955d9984e7618a MANIFEST
+SHA1 e7b6d32608e2961499387ad7abdac6e8c17884d1 MANIFEST.SKIP
+SHA1 c82301fca29ba432d4d6b372348cf3a60dd03d23 META.yml
+SHA1 bea90901dc483379cf6f6f9fd902a72e6af3362b Makefile.PL
+SHA1 03db95047ff8f58c0a334ec7c106655ddceeb218 debian/changelog
+SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
+SHA1 56ad21ce9d769c7adbd5ec3e30a7fe1bdf0edae0 debian/control
+SHA1 c60643f94a1957fb4576aa4a46bdd250b1db8646 debian/copyright
+SHA1 e26a5c533b83a3c47b0680b8314f0f924d51bff5 debian/rules
+SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
+SHA1 dc8fe3c228438df55d85018803b3c8a4f05dc21a debian/watch
+SHA1 c88fc9dc89e9c7e682a08c2ab7f8d71ab911547f devel/clone.pl
+SHA1 0d40cfdffbad9f431ff7388c72e711166346591e devel/image-svg.pl
+SHA1 d34492ea04ab0f004fbb3c5ca8a6bd42a216844e inc/MyMakeMakerExtras.pm
+SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf inc/my_pod2html
+SHA1 7cf26a2d7894994aba69e2a2299841795e9d8b38 lib/Image/Base/SVG.pm
+SHA1 65d2aa91962fc56276be57bfdca4ad56ab6a4309 t/MyTestHelpers.pm
+SHA1 5a73c2ff58ff581b1e42a7394d85444503c244e3 t/SVG-use.t
+SHA1 b46f5ecb584697ae590614b3bc27ecb2a4d96bbe t/SVG.t
+SHA1 0279c9310ec528d10a2a14e602bf98f1c776cce1 xt/0-META-read.t
+SHA1 219395eb91b03829e6f14db4ebd57d88ea972e61 xt/0-Test-ConsistentVersion.t
+SHA1 8a5e0f34131de34e584fbb1939c191a152566155 xt/0-Test-DistManifest.t
+SHA1 cc04a5fe5d8b8b38bfd56453d5d2686c8ea58783 xt/0-Test-Pod.t
+SHA1 8cc52e23427a82cfef5802bf512b13c65de2687a xt/0-Test-Synopsis.t
+SHA1 4c14845872d6eb4280e12f862d6ba2c343358c60 xt/0-Test-YAML-Meta.t
+SHA1 3bb520f683d34b67db24232f123eae3490982267 xt/0-file-is-part-of.t
+SHA1 daba2840c7f128371d42516619a0e04fee2f5ff4 xt/0-no-debug-left-on.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+iD8DBQFOBQ2dLFMCIV9q3ToRAj5ZAKCcg1QmcDMO6dEL7H08bG9Bw42pWwCfa0fl
+hPV0/r/zV44+rg93DTqH0/s=
+=2T8c
+-----END PGP SIGNATURE-----
