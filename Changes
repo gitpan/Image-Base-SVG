@@ -1,4 +1,4 @@
-Copyright 2010, 2011 Kevin Ryde
+Copyright 2011 Kevin Ryde
 
 This file is part of Image-Base-SVG.
 
@@ -15,6 +15,10 @@ General Public License for more details.
 You can get a copy of the GNU General Public License online at
 <http://www.gnu.org/licenses/>.
 
+
+
+Version 2, June 2011
+    - tests allow for no add_colours()
 
 Version 1, June 2011
     - the first version

@@ -23,7 +23,7 @@ use Carp;
 use SVG; # version 2.50 needs an import() to create methods
 
 use vars '$VERSION', '@ISA';
-$VERSION = 1;
+$VERSION = 2;
 
 use Image::Base;
 @ISA = ('Image::Base');

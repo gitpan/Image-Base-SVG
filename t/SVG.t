@@ -49,7 +49,7 @@ sub find_elem {
 # VERSION
 
 {
-  my $want_version = 1;
+  my $want_version = 2;
   is ($Image::Base::SVG::VERSION, $want_version, 'VERSION variable');
   is (Image::Base::SVG->VERSION,  $want_version, 'VERSION class method');
 
@@ -335,7 +335,7 @@ END { $tempfilename && unlink $tempfilename }
 
 {
   my $image = Image::Base::SVG->new (-width => 10,
-                                    -height => 10);
+                                     -height => 10);
   is (scalar ($image->get ('-file')), undef);
   is_deeply  ([$image->get ('-file')], [undef]);
 }
@@ -344,9 +344,12 @@ END { $tempfilename && unlink $tempfilename }
 # add_colours
 
 {
-  my $image = Image::Base::SVG->new (-width  => 100,
-                                                     -height => 100);
-  $image->add_colours ('#FF00FF', 'None', '#FFaaaa');
+  my $image = Image::Base::SVG->new (-width  => 100, -height => 100);
+  if (! $image->can('add_colours')) {
+    diag "skip no add_colours()";
+  } else {
+    $image->add_colours ('#FF00FF', 'None', '#FFaaaa');
+  }
 }
 
 exit 0;
