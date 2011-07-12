@@ -26,22 +26,11 @@ my $filename = '/tmp/x.svg';
 use SVG;
 
 {
-  my $svg = SVG->new;
-  $svg->tag('title')->cdata('hello');
-  my $xml = $svg->xmlify;
-  $xml =~ s/title /title/;
-  print $xml;
-  require SVG::Parser::SAX;
-  my $parser = SVG::Parser::SAX->new (-debug=>1);
-  $parser->parse(Source => {String => $xml});
-  exit 0;
-}
-{
   require Image::Base::SVG;
   my $image = Image::Base::SVG->new (
-                                                     -width  => 500,
-                                                     -height => 400,
-                                                    );
+                                     -width  => 500,
+                                     -height => 400,
+                                    );
   # ### $image
   ### height: $image->get('-height')
 
@@ -60,6 +49,9 @@ use SVG;
 
   $image->line (30,340, 380,390, 'white', 1);
 
+  $image->diamond (330,40, 380,90, 'pink', 0);
+  $image->diamond (330,140, 380,190, 'pink', 1);
+
   print $image->save($filename);
   system ("cat $filename");
 
@@ -72,6 +64,28 @@ use SVG;
   system ("xzgv $filename");
 
   $image->load($filename);
+  exit 0;
+}
+{
+  my $svg = SVG->new;
+  $svg->tag('title')->cdata('hello');
+  my $xml = $svg->xmlify;
+  $xml =~ s/title /title/;
+  print "$xml\n";
+  {
+    require XML::LibXML;
+    my $parser = XML::LibXML->new;
+    $parser->set_option(validation => 0);
+    $parser->set_option(recover => 1);
+    my $dom = $parser->parse_string($xml);
+    print "DOM: $dom\n";
+  }
+  exit 0;
+  {
+    require SVG::Parser::SAX;
+    my $parser = SVG::Parser::SAX->new (-debug=>1);
+    $parser->parse(Source => {String => $xml});
+  }
   exit 0;
 }
 {

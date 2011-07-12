@@ -23,7 +23,7 @@ use Carp;
 use SVG; # version 2.50 needs an import() to create methods
 
 use vars '$VERSION', '@ISA';
-$VERSION = 2;
+$VERSION = 3;
 
 use Image::Base;
 @ISA = ('Image::Base');
@@ -169,7 +169,7 @@ sub rectangle {
 
 sub ellipse {
   my ($self, $x1,$y1, $x2,$y2, $colour, $fill) = @_;
-  ### Image-Base-SVG rectangle(): @_[1 .. $#_]
+  ### Image-Base-SVG ellipse(): @_[1 .. $#_]
 
   $fill ||= ($x1 == $x2 || $y1 == $y2);
   my $rx = ($x2-$x1+1) / 2;
@@ -195,6 +195,26 @@ sub line {
                                 y2 => $y2+.5,
                                 stroke => $colour,
                                 'stroke-linecap' => "square");
+}
+
+sub diamond {
+  my ($self, $x1,$y1, $x2,$y2, $colour, $fill) = @_;
+  ### Image-Base-SVG diamond(): @_[1 .. $#_]
+
+  $fill ||= ($x1 == $x2 || $y1 == $y2);  # 1x1 done filled
+  if ($fill) {
+    $x2++;
+    $y2++;
+  } else {
+    $x1 += .5;  # for stroke width 1
+    $y1 += .5;
+    $x2 += .5;
+    $y2 += .5;
+  }
+  my $xm = ($x1+$x2)/2;
+  my $ym = ($y1+$y2)/2;
+  $self->{'-svg_object'}->polygon (points => "$xm,$y1 $x1,$ym $xm,$y2 $x2,$ym",
+                                   ($fill?'fill':'stroke') => $colour);
 }
 
 sub load {
@@ -306,7 +326,7 @@ C<SVG> object.  Of course the C<SVG> module has many more features if used
 natively.
 
 It's often fairly easy to spit out SVG directly too, and for instance the
-C<Image::Base::SVGout> module can do that.  The advantage of the C<SVG>
+C<Image::Base::SVGout> module can do that.  The advantages of the C<SVG>
 document object model comes when combining images or fragments, or going
 through elements for post-facto mangling.
 
@@ -367,8 +387,8 @@ or set that to C<$filename> then load.
 
 This uses the C<SVG::Parser> module.  See that module for how to choose
 between Expat or SAX for its underlying XML parse, and in turn see
-L<XML::SAX> for its further choice of libxml, pure perl, etc.  LibXML may be
-unhelpfully strict.
+L<XML::SAX> for its further choice of libxml, pure perl, etc.  LibXML might
+be unhelpfully strict.
 
 =item C<$image-E<gt>save ()>
 
@@ -399,6 +419,8 @@ L<Image::Base>,
 L<SVG>,
 L<SVG::Manual>,
 L<SVG::Parser>
+
+L<Image::Base::SVGout>
 
 =head1 HOME PAGE
 

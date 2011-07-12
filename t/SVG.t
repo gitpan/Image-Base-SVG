@@ -20,7 +20,7 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => 77;
+use Test::More tests => 83;
 
 # suspect libxml too strict, use either the pureperl or expat
 use SVG::Parser qw(SAX=XML::SAX::PurePerl Expat);
@@ -49,7 +49,7 @@ sub find_elem {
 # VERSION
 
 {
-  my $want_version = 2;
+  my $want_version = 3;
   is ($Image::Base::SVG::VERSION, $want_version, 'VERSION variable');
   is (Image::Base::SVG->VERSION,  $want_version, 'VERSION class method');
 
@@ -327,6 +327,72 @@ END { $tempfilename && unlink $tempfilename }
   is ($href->{'x2'}, 7.5);
   is ($href->{'y2'}, 8.5);
   is ($href->{'stroke'}, $colour);
+}
+
+
+#------------------------------------------------------------------------------
+# diamond()
+
+{
+  my $colour = '#000000';
+  my $image = Image::Base::SVG->new (-width => 20,
+                                                     -height => 10);
+  $image->diamond (2,3, 4,8, $colour, 1); # filled
+  
+  #   2   3   4   5
+  #   +---+---+---+3
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+4
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+5
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+6
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+7
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+8
+  #   |   |   |   |
+  #   |   |   |   |
+  #   +---+---+---+9
+
+  my $polygon = find_elem($image,'polygon');
+  my $href = $polygon->getAttributes;
+  ### $href
+  is ($href->{'points'}, '3.5,3 2,6 3.5,9 5,6');
+  is ($href->{'fill'}, $colour);
+}
+{
+  my $colour = '#000000';
+  my $image = Image::Base::SVG->new (-width => 20,
+                                                     -height => 10);
+  $image->diamond (2,3, 4,8, $colour); # unfilled
+
+  my $polygon = find_elem($image,'polygon');
+  my $href = $polygon->getAttributes;
+  is ($href->{'points'}, '3.5,3.5 2.5,6 3.5,8.5 4.5,6');
+  is ($href->{'stroke'}, $colour);
+}
+{
+  my $colour = '#000000';
+  my $image = Image::Base::SVG->new (-width => 20,
+                                                     -height => 10);
+  $image->diamond (2,3, 2,3, $colour); # unfilled
+
+  #   2   3
+  #   +---+3
+  #   |   |
+  #   |   |
+  #   +---+4
+
+  my $polygon = find_elem($image,'polygon');
+  my $href = $polygon->getAttributes;
+  is ($href->{'points'}, '2.5,3 2,3.5 2.5,4 3,3.5');
+  is ($href->{'fill'}, $colour);
 }
 
 

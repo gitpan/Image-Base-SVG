@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Image-Base-SVG
-version:            2
+version:            3
 abstract:           Image::Base on SVG files using the SVG module.
 author:
     - Kevin Ryde <user42@zip.com.au>
@@ -13,7 +13,7 @@ build_requires:
 requires:
     Image::Base:  0
     perl:         5.006
-    SVG:          0
+    SVG:          2.38
     SVG::Parser:  0
     Test::More:   0
 resources:
@@ -43,6 +43,7 @@ optional_features:
             Test::DistManifest:  0
             Test::Pod:           1.00
             Test::Synopsis:      0
+            Test::Weaken:        2.000
             Test::YAML::Meta:    0.15
             YAML:                0
             YAML::Syck:          0

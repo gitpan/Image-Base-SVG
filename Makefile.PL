@@ -33,7 +33,10 @@ MyMakeMakerExtras::WriteMakefile
    SIGN         => 1,
    PREREQ_PM    => {
                     'Image::Base' => 0,
-                    'SVG'         => 0,
+                    # 2.38 to avoid redefinition warnings, though previous
+                    # versions may work well enough if only one "use SVG"
+                    # anywhere
+                    'SVG'         => '2.38',
                     'SVG::Parser' => 0,
 
                     # for testing
@@ -45,6 +48,13 @@ MyMakeMakerExtras::WriteMakefile
    META_MERGE =>
    { resources =>
      { homepage => 'http://user42.tuxfamily.org/image-base-svg/index.html',
+     },
+     optional_features =>
+     { maximum_tests =>
+       { description => 'Have "make test" do as much as possible.',
+         requires => { 'Test::Weaken' => '2.000',
+                     },
+       },
      },
    },
   );
