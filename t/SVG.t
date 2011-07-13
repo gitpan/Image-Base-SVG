@@ -20,7 +20,7 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => 83;
+use Test::More;
 
 # suspect libxml too strict, use either the pureperl or expat
 use SVG::Parser qw(SAX=XML::SAX::PurePerl Expat);
@@ -35,6 +35,13 @@ BEGIN { MyTestHelpers::nowarnings() }
 require Image::Base::SVG;
 diag "Image::Base version ", Image::Base->VERSION;
 
+if (eval { require XML::Parser::Expat; 1 }) {
+  diag "XML::Parser::Expat version ", XML::Parser::Expat->VERSION;
+  if (! eval { XML::Parser::Expat->VERSION(2.41); 1 }) {
+    plan skip_all => "due to XML::Parser::Expat before 2.41 gets warnings for perl 5.14 incompatible changes -- $@";
+   }
+}
+
 sub find_elem {
   my ($image, $tagname) = @_;
   my $svg = $image->get('-svg_object')
@@ -45,11 +52,13 @@ sub find_elem {
     || die "Oops $tagname not found";
 }
 
+plan tests => 83;
+
 #------------------------------------------------------------------------------
 # VERSION
 
 {
-  my $want_version = 3;
+  my $want_version = 4;
   is ($Image::Base::SVG::VERSION, $want_version, 'VERSION variable');
   is (Image::Base::SVG->VERSION,  $want_version, 'VERSION class method');
 

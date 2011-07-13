@@ -23,7 +23,7 @@ use Carp;
 use SVG; # version 2.50 needs an import() to create methods
 
 use vars '$VERSION', '@ISA';
-$VERSION = 3;
+$VERSION = 4;
 
 use Image::Base;
 @ISA = ('Image::Base');
@@ -153,7 +153,7 @@ sub rectangle {
   my ($self, $x1,$y1, $x2,$y2, $colour, $fill) = @_;
   ### Image-Base-SVG rectangle(): @_[1 .. $#_]
 
-  $fill ||= ($x1 == $x2 || $y1 == $y2);
+  $fill ||= ($x1 == $x2 || $y1 == $y2);  # 1xN or Nx1 done filled
   if (! $fill) {
     $x1 += .5;  # for stroke width 1
     $y1 += .5;
@@ -201,7 +201,7 @@ sub diamond {
   my ($self, $x1,$y1, $x2,$y2, $colour, $fill) = @_;
   ### Image-Base-SVG diamond(): @_[1 .. $#_]
 
-  $fill ||= ($x1 == $x2 || $y1 == $y2);  # 1x1 done filled
+  $fill ||= ($x1 == $x2 || $y1 == $y2);  # 1xN or Nx1 done filled
   if ($fill) {
     $x2++;
     $y2++;

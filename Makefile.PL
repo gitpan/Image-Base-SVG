@@ -53,6 +53,7 @@ MyMakeMakerExtras::WriteMakefile
      { maximum_tests =>
        { description => 'Have "make test" do as much as possible.',
          requires => { 'Test::Weaken' => '2.000',
+                       'XML::Parser::Expat' => '2.41',
                      },
        },
      },
